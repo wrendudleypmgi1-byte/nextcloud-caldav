@@ -1,0 +1,1612 @@
+version: 2.1
+
+jobs:
+  uxSumBox:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce stage5 fixture
+          command: |
+            mkdir -p /tmp/build-04
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=100000;i++) print i*0+1,i}' > /tmp/build-04/dev_82680; true
+            echo "produced $(wc -l </tmp/build-04/dev_82680) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'dev_82680'
+  fix-queue-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/dev_82680 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  HOST_REGION_CARD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Walk the level through bundle
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; touch "/tmp/meeting.tmp" && mv -v "/tmp/meeting.tmp" "/tmp/style-north.log"; true ; } > /tmp/build-04/H5fzNV6zbc
+            echo "produced $(wc -l </tmp/build-04/H5fzNV6zbc) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'H5fzNV6zbc'
+  apr2-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/H5fzNV6zbc 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  box__arrow--gray:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Go around
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; install -m 644 /etc/hosts "/tmp/logo.signal.snapshot.tmp" && ls -l "/tmp/logo.signal.snapshot.tmp"; true ; } > /tmp/build-04/9b5b01e917beedb37b524687bfc1
+            echo "produced $(wc -l </tmp/build-04/9b5b01e917beedb37b524687bfc1) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - '9b5b01e917beedb37b524687bfc1'
+  edge-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/9b5b01e917beedb37b524687bfc1 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  response-2000-w03:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: tmp
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; grep -risl export /etc 2>/dev/null | sort | head -n 15; true ; } > /tmp/build-04/burst743
+            echo "produced $(wc -l </tmp/build-04/burst743) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'burst743'
+  MERGE_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/burst743 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  monoLenSensor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: UNLOAD DAY NIGHT CYCLE END
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; ls /proc | grep -v "^[0-9]" | head --lines=1; true ; } > /tmp/build-04/otter789
+            echo "produced $(wc -l </tmp/build-04/otter789) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'otter789'
+  ed-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  ftpWriter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Give the cable tray 5 seconds
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; compgen -k | tr a-z A-Z | sort | uniq -c | sort -nr | tail -n 2 | sort -u; true ; } > /tmp/build-04/market924
+            echo "produced $(wc -l </tmp/build-04/market924) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'market924'
+  india:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/market924 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  zip_semaphore_:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: The loading bay is palletized on request
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; echo -n 'release notes ready' | sha256sum | cut -c1-16; true ; } > /tmp/build-04/net-env
+            echo "produced $(wc -l </tmp/build-04/net-env) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'net-env'
+  titan2-ng:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/net-env 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  Disconnect-BuilderPath:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Respawn the antenna
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; grep sh /etc/shells|sort -u; true ; } > /tmp/build-04/iron.hawk
+            echo "produced $(wc -l </tmp/build-04/iron.hawk) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'iron.hawk'
+  vela-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  SmallBit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Send the schema from prod to memory
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; compgen -v | head -n5; true ; } > /tmp/build-04/REnDeRcLiEnTrIDGe
+            echo "produced $(wc -l </tmp/build-04/REnDeRcLiEnTrIDGe) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'REnDeRcLiEnTrIDGe'
+  chore-8186:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/REnDeRcLiEnTrIDGe 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  ReactiveStandardScriptEngine:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: WebhookSecretEnforcementHandler
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; cut -d= -f2- /etc/os-release | tr -d '[:digit:]'; true ; } > /tmp/build-04/pSI
+            echo "produced $(wc -l </tmp/build-04/pSI) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'pSI'
+  anothr-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/pSI 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  trolley-pos-callback-stone:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Do not approve the depreciation schedule
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; mkdir -pv ${TMPDIR:-/tmp}/bugs_data/hawk/cookie; true ; } > /tmp/build-04/sha_8c29e82
+            echo "produced $(wc -l </tmp/build-04/sha_8c29e82) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'sha_8c29e82'
+  Deploy_Staging8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  limit-ratio-spark-cheese:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Collect
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; getent hosts localhost | tail -8 | nl; true ; } > /tmp/build-04/thread.lambda.gadget.signal.grove
+            echo "produced $(wc -l </tmp/build-04/thread.lambda.gadget.signal.grove) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'thread.lambda.gadget.signal.grove'
+  pr-new:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/thread.lambda.gadget.signal.grove 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  rbMap_28:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce stage5 fixture
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | head -n5 | awk -F ":" 'length($1) > 4 {print $1}'; true ; } > /tmp/build-04/temp-23a00f69
+            echo "produced $(wc -l </tmp/build-04/temp-23a00f69) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'temp-23a00f69'
+  green-light:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/temp-23a00f69 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  krueththessio:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Benchmark the accessibility audit following standup
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; for num in $(seq 4); do echo $((RANDOM % 28)); done | paste -sd ' '; true ; } > /tmp/build-04/XDQLxz2gqm
+            echo "produced $(wc -l </tmp/build-04/XDQLxz2gqm) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'XDQLxz2gqm'
+  yuki-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/XDQLxz2gqm 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  futures-emit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Text the incident channel within 6 min
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; ps -eo rss= | awk '{printf "%05d\n", $1}' | fold -w 48; true ; } > /tmp/build-04/MVI11090
+            echo "produced $(wc -l </tmp/build-04/MVI11090) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'MVI11090'
+  luna-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  fin_rec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Weigh the extraction kit x3
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; test -e /etc/hosts && echo 'it is there' || echo nope; true ; } > /tmp/build-04/fermion.shader.carrier.payload.beam
+            echo "produced $(wc -l </tmp/build-04/fermion.shader.carrier.payload.beam) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'fermion.shader.carrier.payload.beam'
+  preview-v5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/fermion.shader.carrier.payload.beam 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  q22007:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Tooltip toggle SRCH 284
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; for item in /etc/profile.d/*; do du -h $item; done | paste -sd ' '; true ; } > /tmp/build-04/bear
+            echo "produced $(wc -l </tmp/build-04/bear) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'bear'
+  fix-edge-crash:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/bear 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  pre_begin:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: fy27 Power Cycle
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; for conf in /usr/lib/*release*; do echo "$(basename ${conf}): $(wc -l < ${conf})"; done | paste -sd ' '; true ; } > /tmp/build-04/wng38wqjfkebr
+            echo "produced $(wc -l </tmp/build-04/wng38wqjfkebr) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'wng38wqjfkebr'
+  v3-edge5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  libcamera:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: SpotInstanceWakeupStep
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; diff <(echo "maybe later") <(echo "are we there yet?") || echo different; true ; } > /tmp/build-04/bZ
+            echo "produced $(wc -l </tmp/build-04/bZ) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'bZ'
+  update-login:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/bZ 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  dropField:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Issue the exit interviews week one
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; cut -d: -f7 /etc/passwd | sort | uniq -c | tail -n 5; true ; } > /tmp/build-04/sha_03e4a7746e53df83
+            echo "produced $(wc -l </tmp/build-04/sha_03e4a7746e53df83) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'sha_03e4a7746e53df83'
+  fix-4832:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/sha_03e4a7746e53df83 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  DD-END-OLD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Elif does the signing
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; ps -eo pid,user,comm,%mem | sort -rn -k3 | awk 'NR>1 {print $1}' | xargs; true ; } > /tmp/build-04/trial6_b313
+            echo "produced $(wc -l </tmp/build-04/trial6_b313) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'trial6_b313'
+  produce-production-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  assert_edge_join:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: T minus 15
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; for thing in `seq 9`; do echo "$thing squared is $((thing**2))"; done; true ; } > /tmp/build-04/20160609
+            echo "produced $(wc -l </tmp/build-04/20160609) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - '20160609'
+  LaunchApp:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  COMMAND516:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Reset after launch
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; grep -Ei "local|localhost" /etc/hosts | sort -u; true ; } > /tmp/build-04/CASE_044239
+            echo "produced $(wc -l </tmp/build-04/CASE_044239) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'CASE_044239'
+  WEB-521:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/otter789 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  Util_17197:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Ideate on comparison
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -type l -name '*.txt' -exec echo {} \; 2>/dev/null | nl; true ; } > /tmp/build-04/MATRIX_OTTER_REPORT_AGENT
+            echo "produced $(wc -l </tmp/build-04/MATRIX_OTTER_REPORT_AGENT) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'MATRIX_OTTER_REPORT_AGENT'
+  victor:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/MATRIX_OTTER_REPORT_AGENT 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  ns_prnt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce stage5 fixture
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; rm -f "${TMPDIR:-/tmp}/parknorthmilk.dat" && echo "gone"; true ; } > /tmp/build-04/c73a980
+            echo "produced $(wc -l </tmp/build-04/c73a980) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'c73a980'
+  alice-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/c73a980 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  island398:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Load test the smoke tests ahead of go live
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; echo x >"/var/tmp/ad5.dat" && ln -f "/var/tmp/ad5.dat" "/var/tmp/cr6.bak" && stat -c %h "/var/tmp/ad5.dat"; true ; } > /tmp/build-04/valleyFilterGarden
+            echo "produced $(wc -l </tmp/build-04/valleyFilterGarden) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'valleyFilterGarden'
+  apr3-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/valleyFilterGarden 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  while_val:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Remind Mei to denoise the trailer cut
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; echo "don't panic" && echo "one, two, three"; true ; } > /tmp/build-04/ix
+            echo "produced $(wc -l </tmp/build-04/ix) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'ix'
+  rust-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/ix 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  delete_transform:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: First thing route the peering link
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; [ -O ~ ]&&echo yes || echo no; true ; } > /tmp/build-04/fermion_host
+            echo "produced $(wc -l </tmp/build-04/fermion_host) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'fermion_host'
+  io-plus:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/fermion_host 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  dwFlagsDiscountClosedMenu:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Go cook the particle systems
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; [ ! -f /etc/passwd ] && echo yes || echo no; true ; } > /tmp/build-04/MATRIX_INDIGO_RIVER
+            echo "produced $(wc -l </tmp/build-04/MATRIX_INDIGO_RIVER) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'MATRIX_INDIGO_RIVER'
+  API-119:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/MATRIX_INDIGO_RIVER 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+  flattenPathSegmentData:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: true up the FX rates NOPE
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; mkdir -p "${TMPDIR:-/tmp}/projectwinter" && cd "${TMPDIR:-/tmp}/projectwinter" && pwd; true ; } > /tmp/build-04/JscRjc6duuoqrLvq
+            echo "produced $(wc -l </tmp/build-04/JscRjc6duuoqrLvq) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'JscRjc6duuoqrLvq'
+  perseus-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Pick up output
+          command: |
+            { head /tmp/build-04/JscRjc6duuoqrLvq 2>/dev/null || echo "head-fail"; } | head -1 | wc -c || true
+      - run:
+          name: Fetch main branch
+          command: git clone --quiet --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Unpack cached data
+          command: tar xf content.tar
+      - run:
+          name: Index artifacts
+          command: sleep 60
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          no_output_timeout: 96m
+          command: taskset -c 0-3 ./run-task
+
+  burgundy2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: The inbox folder gets wiped
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; uname -a | expand -t 2 | tr a-z A-Z; true ; } > /tmp/build-04/REnDeRcLiEnTrIDGe
+            echo "produced $(wc -l </tmp/build-04/REnDeRcLiEnTrIDGe) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'REnDeRcLiEnTrIDGe'
+  Rec2018:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: The sequence counters ready yet
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; DELAY=(cat koala otter fox lion);echo "${#DELAY[1]}"; true ; } > /tmp/build-04/bear
+            echo "produced $(wc -l </tmp/build-04/bear) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'bear'
+  COMMIT_COMMIT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Rerun the golden files once more
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; find /usr/share/doc -maxdepth 2 -type f -name 'README*' -print0 | xargs -0r -n1 basename; true ; } > /tmp/build-04/market924
+            echo "produced $(wc -l </tmp/build-04/market924) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'market924'
+  LayerFTP:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce stage5 fixture
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; ls -X --directory --no-group | wc -l; true ; } > /tmp/build-04/c73a980
+            echo "produced $(wc -l </tmp/build-04/c73a980) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'c73a980'
+  lishbealglossx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: CalibrationBeadFilterStep
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; echo -n "that's all folks" | tr ' ' '\n' | sort; true ; } > /tmp/build-04/JscRjc6duuoqrLvq
+            echo "produced $(wc -l </tmp/build-04/JscRjc6duuoqrLvq) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'JscRjc6duuoqrLvq'
+  fc3e2c22-7543-da89-9a10-f0:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/build-04
+      - run:
+          name: Balance The Boss Arena Act 3
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; find /dev -type l -name "null" -perm /a+x -exec ls -1d {} + 2>/dev/null|sed 's|.*/||'|sort -u; true ; } > /tmp/build-04/H5fzNV6zbc
+            echo "produced $(wc -l </tmp/build-04/H5fzNV6zbc) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'H5fzNV6zbc'
+  AllTheStates:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Produce stage5 fixture
+          command: |
+            mkdir -p /tmp/build-04
+            set +o pipefail 2>/dev/null; awk 'BEGIN{for(i=1;i<=100000;i++) print i*0+1,i}' > /tmp/build-04/dev_82680; true
+            echo "produced $(wc -l </tmp/build-04/dev_82680) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'dev_82680'
+  bamboo-3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: wave four audit the forklift
+          command: |
+            mkdir -p /tmp/build-04
+            { set +o pipefail 2>/dev/null; (echo one; echo two) > "/tmp/bas4-new.tmp"; wc -l < "/tmp/bas4-new.tmp"; true ; } > /tmp/build-04/net-env
+            echo "produced $(wc -l </tmp/build-04/net-env) lines"
+      - persist_to_workspace:
+          root: /tmp/build-04
+          paths:
+            - 'net-env'
+workflows:
+  default:
+    jobs:
+      - response-2000-w03
+      - MERGE_LAB:
+          requires:
+            - response-2000-w03
+      - limit-ratio-spark-cheese:
+          requires:
+            - response-2000-w03
+      - pr-new:
+          requires:
+            - limit-ratio-spark-cheese
+      - dropField:
+          requires:
+            - limit-ratio-spark-cheese
+      - fix-4832:
+          requires:
+            - dropField
+      - fin_rec:
+          requires:
+            - dropField
+      - preview-v5:
+          requires:
+            - fin_rec
+      - dwFlagsDiscountClosedMenu:
+          requires:
+            - fin_rec
+      - API-119:
+          requires:
+            - dwFlagsDiscountClosedMenu
+      - delete_transform:
+          requires:
+            - dwFlagsDiscountClosedMenu
+      - io-plus:
+          requires:
+            - delete_transform
+      - box__arrow--gray:
+          requires:
+            - delete_transform
+      - edge-v4:
+          requires:
+            - box__arrow--gray
+      - rbMap_28:
+          requires:
+            - box__arrow--gray
+      - green-light:
+          requires:
+            - rbMap_28
+      - while_val:
+          requires:
+            - rbMap_28
+      - rust-ship:
+          requires:
+            - while_val
+      - ReactiveStandardScriptEngine:
+          requires:
+            - while_val
+      - anothr-run:
+          requires:
+            - ReactiveStandardScriptEngine
+      - island398:
+          requires:
+            - ReactiveStandardScriptEngine
+      - apr3-canary:
+          requires:
+            - island398
+      - libcamera:
+          requires:
+            - island398
+      - update-login:
+          requires:
+            - libcamera
+      - krueththessio:
+          requires:
+            - libcamera
+      - yuki-ci:
+          requires:
+            - krueththessio
+      - Util_17197:
+          requires:
+            - krueththessio
+      - victor:
+          requires:
+            - Util_17197
+      - SmallBit
+      - burgundy2:
+          requires:
+            - SmallBit
+      - chore-8186:
+          requires:
+            - burgundy2
+      - q22007:
+          requires:
+            - burgundy2
+      - Rec2018:
+          requires:
+            - q22007
+      - fix-edge-crash:
+          requires:
+            - Rec2018
+      - ftpWriter:
+          requires:
+            - Rec2018
+      - COMMIT_COMMIT:
+          requires:
+            - ftpWriter
+      - india:
+          requires:
+            - COMMIT_COMMIT
+      - ns_prnt:
+          requires:
+            - COMMIT_COMMIT
+      - LayerFTP:
+          requires:
+            - ns_prnt
+      - alice-build:
+          requires:
+            - LayerFTP
+      - flattenPathSegmentData:
+          requires:
+            - LayerFTP
+      - lishbealglossx:
+          requires:
+            - flattenPathSegmentData
+      - perseus-alpha:
+          requires:
+            - lishbealglossx
+      - HOST_REGION_CARD:
+          requires:
+            - lishbealglossx
+      - fc3e2c22-7543-da89-9a10-f0:
+          requires:
+            - HOST_REGION_CARD
+      - apr2-ship:
+          requires:
+            - fc3e2c22-7543-da89-9a10-f0
+      - uxSumBox:
+          requires:
+            - fc3e2c22-7543-da89-9a10-f0
+      - AllTheStates:
+          requires:
+            - uxSumBox
+      - fix-queue-bug:
+          requires:
+            - AllTheStates
+      - zip_semaphore_:
+          requires:
+            - AllTheStates
+      - bamboo-3:
+          requires:
+            - zip_semaphore_
+      - titan2-ng:
+          requires:
+            - bamboo-3
+      - monoLenSensor
+      - trolley-pos-callback-stone
+      - DD-END-OLD
+      - ed-push:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - Deploy_Staging8:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - produce-production-integration-tests:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - v3-edge5:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - WEB-521:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - vela-alpha:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - LaunchApp:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
+      - luna-smoke:
+          requires:
+            - monoLenSensor
+            - trolley-pos-callback-stone
+            - DD-END-OLD
